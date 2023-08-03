@@ -9,37 +9,11 @@ const Main = () => {
   };
 
   const handleSubmit = () => {
-    sendPhoneNumber(phoneNumber)
-        .then(data => {
-            console.log(data); // 확인을 위해 콘솔에 출력합니다.
-            navigate('/html1', {
-                state: { phoneNumber },
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-  };
-
-  const sendPhoneNumber = async (phoneNumber) => {
-    const response = await fetch('/api/orders/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            phoneNumber,
-        }),
+    navigate('/html1', {
+      state: { phoneNumber },
     });
-
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
-
-    return response.json();
   };
 
-  
   const handleClickDirections = () => {
     window.open('https://map.naver.com/v5/entry/place/20133235?c=15,0,0,2,dh', '_blank');
   };
@@ -54,8 +28,8 @@ const Main = () => {
       <div style={{
         display: 'flex', 
         flexDirection: 'column', 
-        alignItems: 'center',
-        position: 'absolute',
+        alignItems: 'center', 
+        position: 'absolute', 
         top: 'calc(50% - 220px)'
       }}>
         <h1 style={{textAlign: 'center', fontSize: '2rem'}}>WPS 환영합니다!</h1>

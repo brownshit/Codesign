@@ -14,11 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from orders.views import ReactAppView
+from django.urls import path, include, re_path
+from orders.views import ReactAppView,ManifestView
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('orders/', include('orders.urls')),
     path("", ReactAppView.as_view(),name="react_app"),#React.app을 불러오는 urls
+    path("manifest.json", ManifestView.as_view(), name="manifest_json"),
+    re_path('.*', TemplateView.as_view(template_name='index.html')),
 ]

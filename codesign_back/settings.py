@@ -12,10 +12,13 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import mimetypes
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+mimetypes.add_type("text/html", ".js", True)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -44,6 +47,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -52,7 +56,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
 
@@ -61,6 +64,8 @@ CORS_ORIGIN_WHITELIST =[
     "http://localhost:3000",
 ]
 #만약 이거 안되면 그냥 위에 주석처리한거 사용하기
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'codesign_back.urls'
 
@@ -128,14 +133,26 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'orders/co-design/build/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'orders/co-design/build/static'),
 ]
+
+# MIME setting
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
+"""
+Nginx일때의 MIME설정, mime,types파일 편집하는 코드
 
+types {
+    # 기존 설정들
+    application/javascript js;
+    # 기타 다른 설정들
+}
+"""
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

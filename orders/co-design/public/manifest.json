@@ -18,6 +18,10 @@
       "sizes": "512x512"
     }
   ],
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
